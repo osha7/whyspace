@@ -7,6 +7,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavMenu from "./NavMenu";
+import AuthProvider from "./AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +22,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body className={inter.className}>
-                <div>
-                    <NavMenu />
-                    <main>{children}</main>
-                </div>
-            </body>
-        </html>
+        // AuthProvider now gives us access to the current user
+        // anywhere  in the client side application
+        <AuthProvider> 
+            <html lang="en">
+                <body className={inter.className}>
+                    <div>
+                        <NavMenu />
+                        <main>{children}</main>
+                    </div>
+                </body>
+            </html>
+        </AuthProvider>
     );
 }
